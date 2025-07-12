@@ -2,13 +2,16 @@
 
 @user_id = 1
 
+### Health check
+GET {{host}}/health
+
 ### Create a user
 POST {{host}}/users
 Content-Type: application/json
 
 {
     "name": "Sonic",
-    "email": "sonic2@mail.com",
+    "email": "sonic20@mail.com",
     "password": "123456"
 }
 

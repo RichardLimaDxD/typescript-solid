@@ -1,4 +1,20 @@
 services:
+  server:
+    build:
+      context: .
+    environment:
+      NODE_ENV: ${NODE_ENV}
+      DATABASE_URL: ${DATABASE_URL}
+    ports:
+      - 3333:3333
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:3333/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
   db:
     image: bitnami/postgresql:16
     ports:
@@ -7,3 +23,16 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
+    expose:
+      - 5432
+    volumes:
+      - db-data:/bitnami/postgresql
+    healthcheck:
+      test:
+        ["CMD", "pg_isready", "-U", "${POSTGRES_USER}", "-d", "${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  db-data:

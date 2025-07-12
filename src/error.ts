@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FastifyReply, FastifyRequest } from "fastify";
 import { ZodError } from "zod";
 import env from "./env";
@@ -6,7 +5,7 @@ import env from "./env";
 class AppError extends Error {
   statusCode: number;
 
-  constructor(message: string, statusCode: number = 400) {
+  constructor(message: string, statusCode = 400) {
     super(message);
     this.statusCode = statusCode;
   }
@@ -22,21 +21,23 @@ const errorHandle = (
   }
 
   if (error instanceof ZodError) {
-    const formattedErrors = Object.entries(error.format())
-      .filter(([key]) => key !== "_errors")
-      .map(([field, value]: [string, any]) => ({
+    const errors = Object.entries(error.format())
+      .filter(([field]) => field !== "_errors")
+      .map(([field, issue]) => ({
         field,
-        message: value._errors.join(", "),
+        message: issue?._errors?.join(", ") || "Invalid field",
       }));
 
     return response.status(400).send({
       statusCode: 400,
       message: "Validation error.",
-      errors: formattedErrors,
+      errors,
     });
   }
 
-  if (env.NODE_ENV !== "production") console.error(error);
+  if (env.NODE_ENV !== "production") {
+    console.error(error);
+  }
 
   return response.status(500).send({ message: "Internal Server Error" });
 };

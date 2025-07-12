@@ -20,8 +20,12 @@ const usersRegisterController = async (
     });
 
     return response.status(201).send();
-  } catch (error: any) {
-    return response.status(409).send({ message: error.message });
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return response.status(409).send({ message: error.message });
+    }
+
+    return response.status(500).send({ message: "Internal server error" });
   }
 };
 
