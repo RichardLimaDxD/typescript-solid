@@ -4,7 +4,7 @@ import { errorHandle } from "./error";
 
 const app = fastify();
 
-appRoutes(app);
+app.register(appRoutes);
 
 app.setErrorHandler(errorHandle);
 

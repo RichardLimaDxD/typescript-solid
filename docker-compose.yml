@@ -2,6 +2,9 @@ services:
   server:
     build:
       context: .
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
     environment:
       NODE_ENV: ${NODE_ENV}
       DATABASE_URL: ${DATABASE_URL}

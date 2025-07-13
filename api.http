@@ -15,6 +15,15 @@ Content-Type: application/json
     "password": "123456"
 }
 
+### Authenticate
+POST {{host}}/auth
+Content-Type: application/json
+
+{
+    "email": "sonic20@mail.com",
+    "password": "123456"
+}
+
 ### Get all users
 GET {{host}}/users
 
