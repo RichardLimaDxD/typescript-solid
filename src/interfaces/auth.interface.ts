@@ -1,12 +1,10 @@
 import { User } from "prisma/generated";
 
-interface AuthInterfaceUseCaseRequest {
+export interface AuthInterfaceUseCaseRequest {
   email: string;
   password: string;
 }
 
-interface AuthInterfaceUseCaseResponse {
+export interface AuthInterfaceUseCaseResponse {
   user: User;
 }
-
-export { AuthInterfaceUseCaseRequest, AuthInterfaceUseCaseResponse };

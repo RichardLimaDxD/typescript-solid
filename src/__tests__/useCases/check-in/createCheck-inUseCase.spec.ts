@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi, afterEach } from "vitest";
 import InMemoryCheckInRepository from "@/__tests__/in-memory/check-in/check-in.in-memory.repository";
-import CreateCheckInUseCase from "@/application/useCases/check-in/createUseCase";
+import CreateCheckInUseCase from "@/application/useCases/check-in/createCheck-inUseCase";
 import { AppError } from "@/error";
 import InMemoryGymRepository from "@/__tests__/in-memory/gym/gym.in-memory.repository";
 import { Decimal } from "@prisma/client/runtime/library";
@@ -10,7 +10,7 @@ let createCheckInUseCase: CreateCheckInUseCase;
 let gymRepository: InMemoryGymRepository;
 
 describe("Create Check In Use Case", () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     checkInRepository = new InMemoryCheckInRepository();
 
     gymRepository = new InMemoryGymRepository();
@@ -20,13 +20,13 @@ describe("Create Check In Use Case", () => {
       gymRepository,
     );
 
-    gymRepository.items.push({
+    await gymRepository.create({
       id: "gym-1",
-      title: "Gym 1",
-      description: "Gym 1 description",
-      phone: "1234567890",
-      latitude: new Decimal(-23.1896771),
-      longitude: new Decimal(-46.9891027),
+      title: "Nodejs Gym",
+      description: null,
+      phone: null,
+      latitude: -23.1896771,
+      longitude: -46.9891027,
     });
 
     vi.useFakeTimers();

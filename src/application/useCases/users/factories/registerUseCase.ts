@@ -1,4 +1,4 @@
-import RegisterUseCase from "../registerUseCase";
+import RegisterUseCase from "../registerUserUseCase";
 import InMemoryUsersRepository from "@/__tests__/in-memory/users/user.in-memory.repository";
 
 const factoryRegisterUseCase = () => {

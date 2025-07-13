@@ -1,8 +1,16 @@
-import { Gym } from "prisma/generated";
+import { Gym, Prisma } from "prisma/generated";
 import GymRepository from "../gym.repository";
 import prisma from "@/database/prisma";
 
 class GymPrismaRepository implements GymRepository {
+  async create(data: Prisma.GymCreateInput): Promise<Gym> {
+    const gym = await prisma.gym.create({
+      data,
+    });
+
+    return gym;
+  }
+
   async findById(id: string): Promise<Gym | null> {
     const gym = await prisma.gym.findUnique({
       where: { id },
