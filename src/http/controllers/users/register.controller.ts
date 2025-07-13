@@ -1,7 +1,6 @@
 import { userSchema } from "@/schemas/users.schema";
 import { FastifyReply, FastifyRequest } from "fastify";
-import RegisterUseCase from "@/application/useCases/users/registerUseCase";
-import UsersPrismaRepository from "@/repositories/prisma/users.prisma.repository";
+import factoryRegisterUseCase from "@/application/useCases/users/factories/registerUseCase";
 
 const usersRegisterController = async (
   request: FastifyRequest,
@@ -10,8 +9,7 @@ const usersRegisterController = async (
   const { name, email, password } = userSchema.parse(request.body);
 
   try {
-    const prismaUsersRepository = new UsersPrismaRepository();
-    const registerUseCase = new RegisterUseCase(prismaUsersRepository);
+    const registerUseCase = factoryRegisterUseCase();
 
     await registerUseCase.execute({
       name,

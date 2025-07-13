@@ -1,5 +1,4 @@
-import { AuthenticateUseCase } from "@/application/useCases/auth/authenticateUseCase";
-import UsersPrismaRepository from "@/repositories/prisma/users.prisma.repository";
+import factoryAuthenticateUseCase from "@/application/useCases/auth/factories/authenticateUseCase";
 import authenticateSchema from "@/schemas/auth.schema";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { ZodError } from "zod";
@@ -11,8 +10,7 @@ const authenticateController = async (
   const { email, password } = authenticateSchema.parse(request.body);
 
   try {
-    const usersRepository = new UsersPrismaRepository();
-    const authenticateUseCase = new AuthenticateUseCase(usersRepository);
+    const authenticateUseCase = factoryAuthenticateUseCase();
 
     await authenticateUseCase.execute({ email, password });
 
