@@ -30,6 +30,18 @@ class CheckInPrismaRepository implements CheckInRepository {
 
     return checkIn;
   }
+
+  async findManyByUserId(userId: string, page: number): Promise<CheckIn[]> {
+    const checkIns = await prisma.checkIn.findMany({
+      where: {
+        user_id: userId,
+      },
+      skip: (page - 1) * 20,
+      take: 20,
+    });
+
+    return checkIns;
+  }
 }
 
 export default CheckInPrismaRepository;
