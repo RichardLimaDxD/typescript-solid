@@ -7,3 +7,7 @@ export type UserRegisterUseCaseRequest = z.infer<typeof userSchema>;
 export interface UserRegisterUseCaseResponse {
   user: User;
 }
+
+export interface GetUserProfileUseCaseResponse {
+  user: User;
+}
