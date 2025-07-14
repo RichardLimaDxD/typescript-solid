@@ -1,6 +1,7 @@
+import prisma from "@/database/prisma";
 import { Gym, Prisma } from "prisma/generated";
 import GymRepository from "../gym.repository";
-import prisma from "@/database/prisma";
+import { GymFindManyNearbyParams } from "@/interfaces/gym.interface";
 
 class GymPrismaRepository implements GymRepository {
   async create(data: Prisma.GymCreateInput): Promise<Gym> {
@@ -28,6 +29,21 @@ class GymPrismaRepository implements GymRepository {
       },
       skip: (page - 1) * 20,
       take: 20,
+    });
+
+    return gyms;
+  }
+
+  async findManyNearby(params: GymFindManyNearbyParams): Promise<Gym[]> {
+    const gyms = await prisma.gym.findMany({
+      where: {
+        latitude: {
+          gte: params.latitude - 0.1,
+        },
+        longitude: {
+          gte: params.longitude - 0.1,
+        },
+      },
     });
 
     return gyms;

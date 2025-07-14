@@ -18,3 +18,11 @@ export interface GetUserMethicsUseCaseRequest {
 export interface GetUserMethicsUseCaseResponse {
   checkInsCount: number;
 }
+
+export interface ValidateCheckInUseCaseRequest {
+  checkInId: string;
+}
+
+export interface ValidateCheckInUseCaseResponse {
+  checkIn: CheckIn;
+}

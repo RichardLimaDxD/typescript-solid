@@ -20,3 +20,17 @@ export interface SearchGymsUseCaseRequest {
 export interface SearchGymsUseCaseResponse {
   gyms: Gym[];
 }
+
+export interface FetchNearbyGymsUseCaseRequest {
+  userLatitude: number;
+  userLongitude: number;
+}
+
+export interface FetchNearbyGymsUseCaseResponse {
+  gyms: Gym[];
+}
+
+export interface GymFindManyNearbyParams {
+  latitude: number;
+  longitude: number;
+}
