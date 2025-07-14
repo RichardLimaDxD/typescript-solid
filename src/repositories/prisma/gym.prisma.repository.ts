@@ -18,6 +18,20 @@ class GymPrismaRepository implements GymRepository {
 
     return gym;
   }
+
+  async searchMany(query: string, page: number): Promise<Gym[]> {
+    const gyms = await prisma.gym.findMany({
+      where: {
+        title: {
+          contains: query,
+        },
+      },
+      skip: (page - 1) * 20,
+      take: 20,
+    });
+
+    return gyms;
+  }
 }
 
 export default GymPrismaRepository;

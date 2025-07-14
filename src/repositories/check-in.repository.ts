@@ -9,6 +9,8 @@ abstract class CheckInRepository {
   ): Promise<CheckIn | null>;
 
   abstract findManyByUserId(userId: string, page: number): Promise<CheckIn[]>;
+
+  abstract countByUserId(userId: string): Promise<number>;
 }
 
 export default CheckInRepository;

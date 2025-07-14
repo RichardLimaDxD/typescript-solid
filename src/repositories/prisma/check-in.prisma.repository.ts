@@ -42,6 +42,16 @@ class CheckInPrismaRepository implements CheckInRepository {
 
     return checkIns;
   }
+
+  async countByUserId(userId: string): Promise<number> {
+    const count = await prisma.checkIn.count({
+      where: {
+        user_id: userId,
+      },
+    });
+
+    return count;
+  }
 }
 
 export default CheckInPrismaRepository;

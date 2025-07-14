@@ -10,3 +10,11 @@ export interface CheckInUseCaseRequest {
 export interface CheckInUseCaseResponse {
   checkIn: CheckIn;
 }
+
+export interface GetUserMethicsUseCaseRequest {
+  userId: string;
+}
+
+export interface GetUserMethicsUseCaseResponse {
+  checkInsCount: number;
+}

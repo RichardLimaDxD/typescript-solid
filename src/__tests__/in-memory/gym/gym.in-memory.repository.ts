@@ -30,6 +30,16 @@ class InMemoryGymRepository implements GymRepository {
 
     return gym;
   }
+
+  async searchMany(query: string, page: number): Promise<Gym[]> {
+    const gyms = this.items
+      .filter((item) => {
+        return item.title.includes(query);
+      })
+      .slice((page - 1) * 20, page * 20);
+
+    return gyms;
+  }
 }
 
 export default InMemoryGymRepository;
