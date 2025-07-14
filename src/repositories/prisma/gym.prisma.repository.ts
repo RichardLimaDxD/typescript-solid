@@ -34,17 +34,16 @@ class GymPrismaRepository implements GymRepository {
     return gyms;
   }
 
-  async findManyNearby(params: GymFindManyNearbyParams): Promise<Gym[]> {
-    const gyms = await prisma.gym.findMany({
-      where: {
-        latitude: {
-          gte: params.latitude - 0.1,
-        },
-        longitude: {
-          gte: params.longitude - 0.1,
-        },
-      },
-    });
+  async findManyNearby({
+    latitude,
+    longitude,
+  }: GymFindManyNearbyParams): Promise<Gym[]> {
+    const gyms: Gym[] = await prisma.$queryRaw<Gym[]>`
+      SELECT * from gyms
+      WHERE ( 6371 * acos( cos( radians(${latitude}) ) *
+      cos( radians( latitude ) ) * cos( radians( longitude ) - radians(${longitude}) ) +
+      sin( radians(${latitude}) ) * sin( radians( latitude ) ) ) ) <= 10
+    `;
 
     return gyms;
   }
