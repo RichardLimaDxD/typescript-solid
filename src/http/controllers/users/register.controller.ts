@@ -1,6 +1,6 @@
 import { userSchema } from "@/schemas/users.schema";
 import { FastifyReply, FastifyRequest } from "fastify";
-import factoryRegisterUseCase from "@/application/factories/registerUseCase";
+import factoryRegisterUseCase from "@/application/factories/registerUserUseCase";
 
 const usersRegisterController = async (
   request: FastifyRequest,

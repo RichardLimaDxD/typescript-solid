@@ -1,11 +1,16 @@
 import { AppError } from "@/error";
-import { GetUserProfileUseCaseResponse } from "@/interfaces/users.interface";
+import {
+  GetUserProfileUseCaseRequest,
+  GetUserProfileUseCaseResponse,
+} from "@/interfaces/users.interface";
 import UsersRepository from "@/repositories/user.repository";
 
 class GetUserProfileUseCase {
   constructor(private usersRepository: UsersRepository) {}
 
-  async execute(userId: string): Promise<GetUserProfileUseCaseResponse> {
+  async execute({
+    userId,
+  }: GetUserProfileUseCaseRequest): Promise<GetUserProfileUseCaseResponse> {
     const user = await this.usersRepository.findById(userId);
 
     if (!user) {

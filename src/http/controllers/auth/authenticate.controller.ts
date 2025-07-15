@@ -1,4 +1,4 @@
-import factoryAuthenticateUseCase from "@/application/useCases/auth/factories/authenticateUseCase";
+import factoryAuthenticateUseCase from "@/application/factories/authenticateUseCase";
 import authenticateSchema from "@/schemas/auth.schema";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { ZodError } from "zod";
@@ -12,9 +12,18 @@ const authenticateController = async (
   try {
     const authenticateUseCase = factoryAuthenticateUseCase();
 
-    await authenticateUseCase.execute({ email, password });
+    const { user } = await authenticateUseCase.execute({ email, password });
 
-    return response.status(200).send();
+    const token = await response.jwtSign(
+      {},
+      {
+        sign: {
+          sub: user.id,
+        },
+      },
+    );
+
+    return response.status(200).send({ token });
   } catch (error) {
     if (error instanceof ZodError) {
       return response.status(400).send({ message: error.message });

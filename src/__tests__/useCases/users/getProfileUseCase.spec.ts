@@ -19,7 +19,9 @@ describe("Get User Profile Use Case", () => {
       password_hash: "123456",
     });
 
-    const { user: userProfile } = await getUserProfileUseCase.execute(user.id);
+    const { user: userProfile } = await getUserProfileUseCase.execute({
+      userId: user.id,
+    });
 
     expect(userProfile.id).toEqual(expect.any(String));
     expect(userProfile.name).toEqual("Super Mario");
@@ -28,7 +30,9 @@ describe("Get User Profile Use Case", () => {
 
   it("should not be able to get user profile with wrong id", async () => {
     await expect(() =>
-      getUserProfileUseCase.execute("non-existing-id"),
+      getUserProfileUseCase.execute({
+        userId: "non-existing-id",
+      }),
     ).rejects.toThrowError(new AppError("User not found", 404));
   });
 });

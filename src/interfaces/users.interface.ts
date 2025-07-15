@@ -11,3 +11,7 @@ export interface UserRegisterUseCaseResponse {
 export interface GetUserProfileUseCaseResponse {
   user: User;
 }
+
+export interface GetUserProfileUseCaseRequest {
+  userId: string;
+}

@@ -25,10 +25,6 @@ class AuthenticateUseCase {
       throw new AppError("Invalid credentials", 404);
     }
 
-    // const token = sign({ email }, process.env.JWT_SECRET, {
-    //   subject: user.id,
-    // });
-
     return {
       user,
     };

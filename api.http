@@ -2,6 +2,8 @@
 
 @user_id = 1
 
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkMDg0YzI0Yy1jYTRmLTRhMGMtOWIwMS1kNWI4NDBiOWVlNDUiLCJpYXQiOjE3NTI1MzkxMDh9.Xwmwu9ZQSJOdWk6kIGWFR4mdsje6_2QrTE9iuH7594c
+
 ### Health check
 GET {{host}}/health
 
@@ -25,7 +27,8 @@ Content-Type: application/json
 }
 
 ### Get all users
-GET {{host}}/users
+GET {{host}}/me
+Authorization: Bearer {{token}}
 
 ### Get a user by id
 GET {{host}}/users/{{user_id}}
