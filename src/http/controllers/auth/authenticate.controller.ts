@@ -18,7 +18,7 @@ const authenticateController = async (
       {},
       {
         sign: {
-          sub: user.id,
+          sub: String(user.id),
         },
       },
     );
