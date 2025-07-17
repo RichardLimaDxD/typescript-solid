@@ -1,4 +1,5 @@
 import factoryAuthenticateUseCase from "@/application/factories/authenticateUseCase";
+import { AppError } from "@/error";
 import authenticateSchema from "@/schemas/auth.schema";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { ZodError } from "zod";
@@ -29,6 +30,11 @@ const authenticateController = async (
       return response.status(400).send({ message: error.message });
     }
 
+    if (error instanceof AppError) {
+      return response.status(error.statusCode).send({ message: error.message });
+    }
+
+    console.log("AUTH ERROR:", error);
     return response.status(500).send({ message: "Internal server error" });
   }
 };

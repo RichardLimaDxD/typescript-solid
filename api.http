@@ -36,3 +36,22 @@ GET {{host}}/users/{{user_id}}
 ### Update a user
 PUT {{host}}/users/{{user_id}}
 Content-Type: application/json
+
+### Create a gym
+POST {{host}}/gyms
+Content-Type: application/json
+
+{
+    "title": "Nodejs - typescript gym",
+    "description": "Academia do nodejs e typescript",
+    "phone": "11999999999",
+    "latitude": -23.2896771,
+    "longitude": -46.4831027
+}
+
+### Search gyms
+GET {{host}}/gyms/search?query=Nodejs
+
+### Search gyms by distance
+GET {{host}}/gyms/nearby?latitude=-23.2896771&longitude=-46.4891027
+

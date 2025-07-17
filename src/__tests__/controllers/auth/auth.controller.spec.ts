@@ -1,9 +1,9 @@
-import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { afterAll, beforeEach, describe, expect, it } from "vitest";
 import request from "supertest";
 import app from "../../../app";
 
 describe("Auth Controller - POST /auth", () => {
-  beforeAll(async () => {
+  beforeEach(async () => {
     await app.ready();
   });
 
