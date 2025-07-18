@@ -3,13 +3,13 @@ import request from "supertest";
 
 const createAndAuthenticateUser = async (app: FastifyInstance) => {
   await request(app.server).post("/users").send({
-    name: "John Doe",
-    email: "john.doe@example.com",
+    name: "Sonic",
+    email: "sonic@example.com",
     password: "123456",
   });
 
   const authResponse = await request(app.server).post("/auth").send({
-    email: "john.doe@example.com",
+    email: "sonic@example.com",
     password: "123456",
   });
 

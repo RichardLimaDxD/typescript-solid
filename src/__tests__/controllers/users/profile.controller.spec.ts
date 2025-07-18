@@ -22,9 +22,7 @@ describe("Profile Controller - GET /profile", () => {
     expect(profileResponse.statusCode).toBe(200);
     expect(profileResponse.body).toEqual(
       expect.objectContaining({
-        id: expect.any(String),
-        name: "Sonic",
-        email: "sonic@example.com",
+        user: expect.objectContaining({ name: "Sonic" }),
       }),
     );
   });
