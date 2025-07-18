@@ -16,7 +16,9 @@ const authenticateController = async (
     const { user } = await authenticateUseCase.execute({ email, password });
 
     const token = await response.jwtSign(
-      {},
+      {
+        role: user.role,
+      },
       {
         sign: {
           sub: user.id,
@@ -25,7 +27,9 @@ const authenticateController = async (
     );
 
     const refreshToken = await response.jwtSign(
-      {},
+      {
+        role: user.role,
+      },
       {
         sign: {
           sub: user.id,
